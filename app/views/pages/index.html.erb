@@ -1,0 +1,8 @@
+<%= react_component("App", {
+  collector_logged_in: debtcollector_signed_in?,
+  collector_sign_out: destroy_debtcollector_session_path,
+  collector_sign_in: new_debtcollector_session_path,
+  current_collector: current_debtcollector,
+  edit_collector: edit_debtcollector_registration_path,
+  token: form_authenticity_token
+}) %>
