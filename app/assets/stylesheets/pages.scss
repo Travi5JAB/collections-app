@@ -78,6 +78,7 @@
   padding:10px;
   position: fixed;
   top:0;
+  z-index: 99;
 }
   .Nav a{
     margin: 10px;
@@ -103,6 +104,7 @@
 }
   .Accounts .Debter{
     background-color: #bdbebf;
+    margin-bottom: 10px;
   }
     .Debter h4{
       margin-left: 10px;
@@ -135,11 +137,23 @@
         .phonenumbers .phoneNumber{
           margin: 10px;
         }
+        .phonenumbers button{
+          opacity: 0;
+        }
+        .phonenumbers:hover button{
+          opacity: 1;
+        }
       .Debter .addresses{
         grid-area: addresses;
       }
         .addresses .address{
           margin: 10px;
+        }
+        .addresses button{
+          opacity: 0;
+        }
+        .addresses:hover button{
+          opacity: 1;
         }
       .Debter .sum{
         grid-area: sum;
@@ -163,11 +177,11 @@
     .accountEven{
       background-color: white;
       display: grid;
-      grid-template-columns: 10px auto;
-      grid-template-rows: auto;
+      grid-template-columns: 10px auto auto auto 200px;
+      grid-template-rows: 100px 50px;
       grid-template-areas:
-      ". number holder ."
-      ". . . balance";
+      ". number holder holder reply"
+      ". commentButton . . balance";
     }
       .accountEven .accountNumber{
         grid-area: number;
@@ -175,17 +189,30 @@
       .accountEven .accountHolder{
         grid-area: holder;
       }
+      .accountEven .commentButton{
+        grid-area: commentButton;
+      }
+        .accountEven .commentButton button{
+          border-style: none;
+          background-color: white;
+          cursor: pointer;
+          outline: none;
+          text-align: left;
+        }
+
       .accountEven .accountBalance{
         grid-area: balance;
+        text-align: right;
+        margin-right: 20px;
       }
     .accountOdd{
       background-color: #e3e3e3;
       display: grid;
-      grid-template-columns: 10px auto;
-      grid-template-rows: auto;
+      grid-template-columns: 10px auto auto auto 200px;
+      grid-template-rows: 100px 50px;
       grid-template-areas:
-      ". number holder ."
-      ". . . balance";
+      ". number holder holder reply"
+      ". commentButton . . balance";
     }
       .accountOdd .accountNumber{
         grid-area: number;
@@ -193,6 +220,155 @@
       .accountOdd .accountHolder{
         grid-area: holder;
       }
+      .accountOdd .commentButton{
+        grid-area: commentButton;
+      }
+        .accountOdd .commentButton button{
+          border-style: none;
+          background-color: #e3e3e3;
+          cursor: pointer;
+          outline: none;
+          text-align: left;
+        }
+
       .accountOdd .accountBalance{
         grid-area: balance;
+        text-align: right;
+        margin-right: 20px;
       }
+    .comment{
+      border-bottom: solid;
+      display: grid;
+      grid-template-columns: 10px auto auto auto;
+      grid-template-rows: 50px 20px auto;
+      grid-template-areas:
+      ". date time collectorId"
+      ". note . ."
+      ". string string string";
+    }
+      .comment .date{
+        grid-area: date;
+      }
+      .comment .time{
+        grid-area: time;
+      }
+      .comment .collectorId{
+        grid-area: collectorId;
+      }
+      .comment .note{
+        grid-area: note;
+      }
+
+      .comment .commentString{
+        grid-area: string;
+      }
+      .comment p{
+        margin-left: 10px;
+      }
+      .comment h3{
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+///////post
+.noreplydiv{
+  grid-area: reply;
+}
+  .accountOdd .noreplydiv button{
+    border-style: none;
+    background-color: #e3e3e3;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+  }
+  .accountEven .noreplydiv button{
+    border-style: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+  }
+.replydiv{
+  height: 100000%;
+  width: 100%;
+  z-index: 999;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(1, 1, 1, .7);
+}
+  .accountOdd .replydiv button{
+    border-style: none;
+    background-color: #e3e3e3;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+  }
+  .accountEven .replydiv button{
+    border-style: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    position: fixed;
+  }
+  .noreply{
+    height: 0;
+    opacity: 0;
+  }
+  .reply{
+
+  }
+    .reply .main{
+      margin-right: 50px;
+      margin-left: 50px;
+      position: fixed;
+      width: 90%;
+    }
+      .reply .main h2{
+        margin: 20px;
+      }
+      .reply .main .commentString{
+        height: 250px;
+        width: 75%;
+        resize: none;
+        margin: 30px;
+        box-shadow: 0 0 10px #719ECE;
+        font-size: 20px;
+      }
+      .reply .main .payment{
+        height: 30px;
+        width: 50%;
+        resize: none;
+        margin: 30px;
+        box-shadow: 0 0 10px #719ECE;
+        font-size: 20px;
+      }
+      .reply .main input{
+        background-color: red;
+        cursor: pointer;
+        border-radius: 50px;
+        font-weight: bold;
+        width: 100px;
+        height: 40px;
+      }
+      .reply .main input:focus{
+        background-color: red;
+        border-radius: 50px;
+        font-weight: bold;
+        width: 100px;
+        height: 40px;
+        transform: translateY(5px);
+        outline: none;
+      }
+
+////AddInfo
+.AddInfo{
+  height: 100000%;
+  width: 100%;
+  z-index: 999;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(1, 1, 1, .7);
+}

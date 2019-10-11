@@ -12,7 +12,7 @@ class Accounts extends React.Component {
       debters: [],
     };
   }
-    componentWillMount(){
+    componentDidMount(){
       this.dataFetch()
     }
 
@@ -27,12 +27,14 @@ class Accounts extends React.Component {
 
   render () {
     const { debters } = this.state
-    const { current_collector } = this.props
+    const { current_collector, token } = this.props
 
     const myAccounts = debters.map((debter,index) => {
       return(
         <Debter
           debter = {debter}
+          token = {token}
+          key = {debter.ssn}
         />
       )
     })

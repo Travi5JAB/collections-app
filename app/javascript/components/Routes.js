@@ -33,6 +33,7 @@ class Routes extends React.Component {
         render={props => (
           <Accounts {...props}
             current_collector = {current_collector}
+            token = {token}
           />
         )}
       />

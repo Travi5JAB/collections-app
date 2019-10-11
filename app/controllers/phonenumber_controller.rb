@@ -1,2 +1,0 @@
-class PhonenumberController < ApplicationController
-end
