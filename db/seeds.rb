@@ -13,7 +13,28 @@ collector.password_confirmation = 'valid_password'
 collector.first_name = 'John'
 collector.last_name = 'Dogh'
 collector.username = "JD1"
+collector.admin_access = false
 collector.save!
+
+collector2 = Debtcollector.new
+collector2.email = 'admin@user.com'
+collector2.password = 'valid_password'
+collector2.password_confirmation = 'valid_password'
+collector2.first_name = 'Admin'
+collector2.last_name = 'User'
+collector2.username = "AU1"
+collector2.admin_access = true
+collector2.save!
+
+collector3 = Debtcollector.new
+collector3.email = 'tester@example.com'
+collector3.password = 'valid_password'
+collector3.password_confirmation = 'valid_password'
+collector3.first_name = 'Jane'
+collector3.last_name = 'Dogh'
+collector3.username = "JD2"
+collector3.admin_access = false
+collector3.save!
 
 
 debter = Debter.new
@@ -29,6 +50,13 @@ debter2.last_name = "Frost"
 debter2.ssn = "777-777-7777"
 debter2.debtcollector_id = 1
 debter2.save!
+
+debter3 = Debter.new
+debter3.first_name = "Jimmy"
+debter3.last_name = "Dean"
+debter3.ssn = "123-456-7890"
+debter3.debtcollector_id = 3
+debter3.save!
 
 
 holder = Debtholder.new
@@ -51,6 +79,12 @@ account2.debter_id = 1
 account2.debtholder_id = 1
 account2.balance = 250
 account2.save!
+
+account3 = Account.new
+account3.debter_id = 3
+account3.debtholder_id = 1
+account3.balance = 200
+account3.save!
 
 
 phonenumber = Phonenumber.new

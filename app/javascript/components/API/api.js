@@ -5,6 +5,12 @@ export const accountsFetch = id => {
   });
 };
 
+export const allAccountsFetch = () => {
+  return fetch(`/accounts`).then(resp => {
+    return resp.json();
+  });
+};
+
 
 ////comments
 
@@ -41,6 +47,25 @@ export const submitPayment = function(payment, id, token) {
 			return resp.json()
 		})
 }
+/////collectors
+
+export const collectorFetch = id => {
+  return fetch(`/onecollector/${id}`).then(resp => {
+    return resp.json();
+  });
+};
+
+export const allCollectorsFetch = () => {
+  return fetch(`/allcollectors`).then(resp => {
+    return resp.json();
+  });
+};
+
+export const collectorsByAccountFetch = () => {
+  return fetch(`/allcollectorsbyaccount`).then(resp => {
+    return resp.json();
+  });
+};
 
 ////address
 

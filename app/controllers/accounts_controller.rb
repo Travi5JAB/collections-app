@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   def index
-    render json: Account.all
+    render json: Debter.all.as_json(include: { accounts: {include: {debtholder: {} } }, phonenumbers: {}, addresses: {} })
   end
 
   def show

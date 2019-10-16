@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 ////pages
 import Home from "./Home";
 import Accounts from "./Accounts";
+import AdminAccounts from "./AdminAccounts";
 
 
 class Routes extends React.Component {
@@ -27,11 +28,23 @@ class Routes extends React.Component {
           />
         )}
       />
+      
       <Route
         exact
         path="/myaccounts/:id"
         render={props => (
           <Accounts {...props}
+            current_collector = {current_collector}
+            token = {token}
+          />
+        )}
+      />
+
+      <Route
+        exact
+        path="/allaccounts/:id"
+        render={props => (
+          <AdminAccounts {...props}
             current_collector = {current_collector}
             token = {token}
           />

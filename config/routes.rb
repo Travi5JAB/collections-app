@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   devise_for :debtcollectors, controllers: { sessions: 'debtcollectors/sessions' , registrations: 'debtcollectors/registrations'}
   devise_scope :debtcollector do
     get 'allcollectors' => 'debtcollectors/registrations#all_collectors'
+    get 'allcollectorsbyaccount' => 'debtcollectors/registrations#all_collectors_by_account'
+    get 'onecollector/:id' => 'debtcollectors/sessions#show'
   end
 
   resources :debters

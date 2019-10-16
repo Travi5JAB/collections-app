@@ -22,6 +22,11 @@ class Debtcollectors::RegistrationsController < Devise::RegistrationsController
     render json: Debtcollector.all
   end
 
+  def all_collectors_by_account
+
+    render json: Account.all.as_json(include: { debter: {include: {debtcollector: {} }}})
+  end
+
   # GET /resource/edit
   # def edit
   #   super
@@ -69,14 +74,15 @@ class Debtcollectors::RegistrationsController < Devise::RegistrationsController
   # end
 
   def username_set
-    p @first = params[:debtcollector][:first_name].split('')[0]
-    p @second = params[:debtcollector][:last_name].split('')[0]
-    p @number = rand(1..99)
-    p @username = "#{@first}#{@second}#{@number}"
+    @first = params[:debtcollector][:first_name].split('')[0]
+    @second = params[:debtcollector][:last_name].split('')[0]
+    @number = rand(1..99)
+    @username = "#{@first}#{@second}#{@number}"
     if Debtcollector.where('username = ?', @username).blank?
       params[:debtcollector][:username] = @username
     else
       username_set
     end
   end
+
 end

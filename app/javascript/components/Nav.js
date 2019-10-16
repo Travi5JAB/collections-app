@@ -19,10 +19,12 @@ class Nav extends React.Component {
       edit_collector,
       token
     } = this.props;
-    const accountLink = `/myaccounts/${current_collector.id}`
+    const debterAccountsLink = `/myaccounts/${current_collector.id}`
+    const adminAccountsLink = `/allaccounts/${current_collector.id}`
 
     return (
       <div className = "Nav">
+
         <a
           className="navBtn"
           href={(collector_logged_in && collector_sign_out) || collector_sign_in}
@@ -30,13 +32,27 @@ class Nav extends React.Component {
         >
           {(collector_logged_in && "Log Out") || "Log In"}
         </a>
-        <a
-          className="navBtn"
-          href={accountLink}
-          id="myaccountsBtn"
-        >
-          My Accounts
-        </a>
+
+        { current_collector.admin_access == false &&
+          <a
+            className="navBtn"
+            href={debterAccountsLink}
+            id="myaccountsBtn"
+          >
+            My Accounts
+          </a>
+        }
+
+        { current_collector.admin_access &&
+          <a
+            className="navBtn"
+            href={adminAccountsLink}
+            id="adminLinkBtn"
+          >
+            Admin Link
+          </a>
+        }
+
         <a
           className="navBtn"
           href="/"
@@ -44,6 +60,7 @@ class Nav extends React.Component {
         >
           Home
         </a>
+
       </div>
     );
   }

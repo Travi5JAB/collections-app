@@ -3,6 +3,10 @@
 class Debtcollectors::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
+  def show
+    render json: Debtcollector.find(params[:id])
+  end
+
   # GET /resource/sign_in
   # def new
   #   super

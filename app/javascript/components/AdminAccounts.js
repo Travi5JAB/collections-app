@@ -3,14 +3,15 @@ import PropTypes from "prop-types"
 
 import Debter from './Debter'
 
-import { accountsFetch, collectorFetch } from './API/api'
+import { allAccountsFetch, collectorFetch, collectorsByAccountFetch } from './API/api'
 
-class Accounts extends React.Component {
+class AdminAccounts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       debters: [],
       collector: {},
+      collectorsByAccount:[],
       search: "",
       searchType: "First Name",
       searchValue: "first_name",
@@ -24,7 +25,7 @@ class Accounts extends React.Component {
       this.dataFetch()
     }
     componentDidUpdate(prevProps, prevState){
-      const { search, debters, searchType, searchValue } = this.state
+      const { search, debters, collectorsByAccount, searchType, searchValue } = this.state
       let ul = document.getElementById("debterUL");
       let li = ul.getElementsByTagName('li')
       if(prevState.searchValue != searchValue || prevState.search != search){
@@ -37,6 +38,7 @@ class Accounts extends React.Component {
               li[i].style.display = "none";
             }
             this.setState({searchType: "First Name"})
+
           }else if (searchValue == "last_name"){
             const txtValue = debters[i].last_name
             if (txtValue.toUpperCase().indexOf(search.toUpperCase()) > -1) {
@@ -45,10 +47,18 @@ class Accounts extends React.Component {
               li[i].style.display = "none";
             }
             this.setState({searchType: "Last Name"})
+
           }else if (searchValue == "ssn"){
             const txtValue = debters[i].ssn
-            if(search.length > 6){
-              const newSearch = `${search.slice(0,2)-search.slice(4,6)-search.slice(7)}`
+            if(search.length > 6 && !search.includes("-")){
+              const newSearch = `${search.slice(0,3)}-${search.slice(3,6)}-${search.slice(6,10)}`
+              if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
+                li[i].style.display = "";
+              } else {
+                li[i].style.display = "none";
+              }
+            }else if(search.length > 3 && !search.includes("-")){
+              const newSearch = `${search.slice(0,3)}-${search.slice(3,6)}`
               if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
                 li[i].style.display = "";
               } else {
@@ -62,8 +72,16 @@ class Accounts extends React.Component {
                 li[i].style.display = "none";
               }
             }
-
             this.setState({searchType: "SSN"})
+
+          }else if (searchValue == "username"){
+            const txtValue = collectorsByAccount[i].debter.debtcollector.username
+            if (txtValue.toUpperCase().indexOf(search.toUpperCase()) > -1) {
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+            this.setState({searchType: "Collector Code"})
           }
         }
       }
@@ -71,7 +89,7 @@ class Accounts extends React.Component {
 
     dataFetch(){
       const { id } = this.props.match.params
-      accountsFetch(id).then(APIaccounts => {
+      allAccountsFetch().then(APIaccounts => {
         this.setState({
           debters: APIaccounts
          });
@@ -79,6 +97,11 @@ class Accounts extends React.Component {
       collectorFetch(id).then(APIcollector => {
         this.setState({
           collector: APIcollector
+         });
+      })
+      collectorsByAccountFetch().then(APIcollectors => {
+        this.setState({
+          collectorsByAccount: APIcollectors
          });
       })
 
@@ -104,7 +127,6 @@ class Accounts extends React.Component {
   render () {
     const { debters, collector, search, searchType, showSearch } = this.state
     const { current_collector, token } = this.props
-
     const searchPlaceHolder = `Search by ${searchType}..`
 
     const myAccounts = debters.map((debter,index) => {
@@ -120,7 +142,7 @@ class Accounts extends React.Component {
     })
 
     return (
-      <div className = "Accounts">
+      <div className = "AllAccounts">
         { showSearch &&
 
           <div className = "searchDiv">
@@ -162,6 +184,15 @@ class Accounts extends React.Component {
               checked={this.state.searchValue === 'ssn'}
               />
             </div>
+            <div className = "collectorCodeRadio">
+              <label>Collector Code</label>
+              <input
+              type="radio"
+              value="username"
+              onChange = {this.updateRadioSearch}
+              checked={this.state.searchValue === 'username'}
+              />
+            </div>
             <div className = "searchExpanded">
               <button onClick = {this.searchToggle}>
                 X
@@ -177,7 +208,7 @@ class Accounts extends React.Component {
             </button>
           </div>
         }
-          <h1>{collector.first_name}'s Accounts   --{collector.username}</h1>
+          <h1>All Accounts   --{collector.username}</h1>
           <ul id = "debterUL">
           {myAccounts}
           </ul>
@@ -186,4 +217,4 @@ class Accounts extends React.Component {
   }
 }
 
-export default Accounts
+export default AdminAccounts
