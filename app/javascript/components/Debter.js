@@ -135,7 +135,6 @@ class Debter extends React.Component {
       return(
         <div className = "phoneNumber" key = {phoneNumber.number}>
           {phoneNumber.phone_type}: {phoneNumber.number}
-          <button className = "remove"> - </button>
         </div>
       )
     })
@@ -169,14 +168,18 @@ class Debter extends React.Component {
           </div>
 
           <div className = "phonenumbers">
-            <h2>Phone Numbers:</h2>
-            <button onClick = {this.openAddPhone}>✚</button>
+            <div id = "flex">
+              <h2>Phone Numbers:</h2>
+              <button onClick = {this.openAddPhone}>⚙️</button>
+            </div>
             {debterPhoneNumbers}
           </div>
 
           <div className = "addresses">
-            <h2>Addresses:</h2>
-            <button onClick = {this.openAddAddress}>✚</button>
+            <div id = "flex">
+              <h2>Addresses:</h2>
+              <button onClick = {this.openAddAddress}>⚙️</button>
+            </div>
             {debterAddresses}
           </div>
 
@@ -209,8 +212,8 @@ class Debter extends React.Component {
               <div>
                 <button onClick = {this.openAddAddress} className = "add">X</button>
                 <div className = "main">
-                  <h1>Add Address</h1>
-                  <form onSubmit = {this.addAddress}>
+                <h1>Add Address</h1>
+                  <form className = "addAddressForm" onSubmit = {this.addAddress}>
                     <p>Address:</p>
                     <input
                       placeholder = "123 Main St #21"
@@ -261,8 +264,8 @@ class Debter extends React.Component {
               <div>
                 <button onClick = {this.openAddPhone} className = "add">X</button>
                 <div className = "main">
-                  <form onSubmit = {this.addPhone}>
-                    <h1>Add a Phone Number</h1>
+                <h1>Add a Phone Number</h1>
+                  <form className = "addPhoneForm" onSubmit = {this.addPhone}>
                     <input
                       placeholder = "6195556677"
                       className = "phoneNumber"

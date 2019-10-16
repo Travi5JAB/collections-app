@@ -10,10 +10,62 @@ class Accounts extends React.Component {
     super(props);
     this.state = {
       debters: [],
+      search: "",
+      searchType: "First Name",
+      searchValue: "first_name",
+      showSearch: false,
     };
+    this.updateSearch = this.updateSearch.bind(this);
+    this.updateRadioSearch = this.updateRadioSearch.bind(this);
+    this.searchToggle = this.searchToggle.bind(this);
   }
     componentDidMount(){
       this.dataFetch()
+    }
+    componentDidUpdate(prevProps, prevState){
+      const { search, debters, searchType, searchValue } = this.state
+      let ul = document.getElementById("debterUL");
+      let li = ul.getElementsByTagName('li')
+      if(prevState.searchValue != searchValue || prevState.search != search){
+        for (let i = 0; i < debters.length; i++) {
+          if (searchValue == "first_name"){
+            const txtValue = debters[i].first_name
+            if (txtValue.toUpperCase().indexOf(search.toUpperCase()) > -1) {
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+            this.setState({searchType: "First Name"})
+          }else if (searchValue == "last_name"){
+            const txtValue = debters[i].last_name
+            if (txtValue.toUpperCase().indexOf(search.toUpperCase()) > -1) {
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+            this.setState({searchType: "Last Name"})
+          }else if (searchValue == "ssn"){
+            const txtValue = debters[i].ssn
+            if(search.length > 6){
+              const newSearch = `${search.slice(0,2)-search.slice(4,6)-search.slice(7)}`
+              if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
+                li[i].style.display = "";
+              } else {
+                li[i].style.display = "none";
+              }
+            }else{
+              const newSearch = search
+              if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
+                li[i].style.display = "";
+              } else {
+                li[i].style.display = "none";
+              }
+            }
+
+            this.setState({searchType: "SSN"})
+          }
+        }
+      }
     }
 
     dataFetch(){
@@ -25,24 +77,103 @@ class Accounts extends React.Component {
       })
     }
 
+    updateSearch(e){
+      this.setState({
+        search: this.search.value,
+      });
+    };
+    updateRadioSearch(e){
+      this.setState({
+        searchValue: e.target.value
+      });
+    };
+
+    searchToggle(){
+      this.setState(prevState => ({
+        showSearch: !prevState.showSearch
+      }));
+    }
+
   render () {
-    const { debters } = this.state
+    const { debters, search, searchType, showSearch } = this.state
     const { current_collector, token } = this.props
+
+    const searchPlaceHolder = `Search by ${searchType}..`
 
     const myAccounts = debters.map((debter,index) => {
       return(
-        <Debter
-          debter = {debter}
-          token = {token}
-          key = {debter.ssn}
-        />
+        <li id = "debterLI">
+          <Debter
+            debter = {debter}
+            token = {token}
+            key = {debter.ssn}
+          />
+        </li>
       )
     })
 
     return (
       <div className = "Accounts">
-        <h1>{current_collector.first_name}'s Accounts</h1>
-        {myAccounts}
+        { showSearch &&
+
+          <div className = "searchDiv">
+            <h3 className = "title">Search for Debter</h3>
+            <input
+              pattern = "[0-9\-]+"
+              type = "search"
+              className = "searchBar"
+              onChange = {this.updateSearch}
+              placeholder = {searchPlaceHolder}
+              ref = {(search) => this.search = search}
+              autoFocus = "true"
+            />
+            <h5 className = "searchBy">Search By:</h5>
+            <div className = "firstNameRadio">
+              <label>First Name</label>
+              <input
+              type="radio"
+              value="first_name"
+              onChange = {this.updateRadioSearch}
+              checked={this.state.searchValue === 'first_name'}
+              />
+            </div>
+            <div className = "lastNameRadio">
+              <label>Last Name</label>
+              <input
+              type="radio"
+              value="last_name"
+              onChange = {this.updateRadioSearch}
+              checked={this.state.searchValue === 'last_name'}
+              />
+            </div>
+            <div className = "ssnRadio">
+              <label>SSN</label>
+              <input
+              type="radio"
+              value="ssn"
+              onChange = {this.updateRadioSearch}
+              checked={this.state.searchValue === 'ssn'}
+              />
+            </div>
+            <div className = "searchExpanded">
+              <button onClick = {this.searchToggle}>
+                X
+              </button>
+            </div>
+          </div>
+
+          ||
+
+          <div className = "searchCollapsed">
+            <button onClick = {this.searchToggle}>
+              Click to Search
+            </button>
+          </div>
+        }
+          <h1>{current_collector.first_name}'s Accounts</h1>
+          <ul id = "debterUL">
+          {myAccounts}
+          </ul>
       </div>
     );
   }

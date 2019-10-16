@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#flex{
+  display: flex;
+}
 
 //////devise
 
@@ -102,8 +105,98 @@
 .Accounts{
 
 }
+  .Accounts .searchCollapsed{
+    margin-left: 10px;
+  }
+    .Accounts #buffer{
+      height: 45px;
+    }
+    .Accounts .searchCollapsed button{
+      background-image: url(search-icon.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 15px;
+      cursor: pointer;
+      color: rgba(0,0,0,0);
+      margin-top: 45px;
+      margin-bottom: 70px;
+      height: 25px;
+      width: 25px;
+    }
+    .Accounts .searchCollapsed button:hover{
+      width: 150px;
+      background-position: right;
+      color: rgba(0,0,0,1);
+    }
+  .Accounts .searchDiv{
+    animation-duration: 1s;
+    animation-name: searchDivExpand;
+    border-bottom: solid;
+    overflow: visible;
+
+    display: grid;
+    grid-template-columns: 10px 200px 100px 75% 10px;
+    grid-template-rows: 50px 20px 20px 50px;
+    grid-template-areas:
+    ". title title title searchExpanded"
+    ". searchBar searchBy firstNameRadio ."
+    ". searchBar searchBy lastNameRadio ."
+    ". searchBar searchBy ssnRadio .";
+  }
+  .Accounts .searchDiv .title{
+    grid-area: title;
+  }
+  .Accounts .searchDiv .searchExpanded{
+    grid-area: searchExpanded;
+  }
+  .Accounts .searchDiv .searchBar{
+    grid-area: searchBar;
+    animation-duration: .5s;
+    animation-name: searchExpand;
+    background-image: url(search-icon.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    border-radius: 15px;
+    height: 25px;
+    width: 150px;
+    text-align: center;
+  }
+  .Accounts .searchDiv .searchBar:focus{
+    outline: none;
+    background-image: none;
+  }
+  .Accounts .searchDiv .searchBy{
+    grid-area: searchBy;
+  }
+  .Accounts .searchDiv .firstNameRadio{
+    grid-area: firstNameRadio;
+  }
+  .Accounts .searchDiv .lastNameRadio{
+    grid-area: lastNameRadio;
+  }
+  .Accounts .searchDiv .ssnRadio{
+    grid-area: ssnRadio;
+  }
+    ///animation for search
+    @keyframes searchExpand {
+      0% {width: 25px}
+      100% {width: 150px}
+    }
+    @keyframes searchDivExpand {
+      0% {width: 10px}
+      100% {width: 100%}
+    }
+
+
+#debterUL{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+  /////////debter
+
   .Accounts .Debter{
-    background-color: #bdbebf;
+    background-color: #cccecf;
     margin-bottom: 10px;
   }
     .Debter h4{
@@ -138,7 +231,17 @@
           margin: 10px;
         }
         .phonenumbers button{
+          background-color: rgba(1, 1, 1, 0);
+          border-style: none;
+          cursor: pointer;
+          font-size: 25px;
+          height: 25px;
+          width: 25px;
+          margin-top: 20px;
+          margin-left: 5px;
           opacity: 0;
+          outline: none;
+          text-align: center;
         }
         .phonenumbers:hover button{
           opacity: 1;
@@ -150,7 +253,17 @@
           margin: 10px;
         }
         .addresses button{
+          border-style: none;
+          background-color: rgba(1, 1, 1, 0);
+          cursor: pointer;
+          font-size: 25px;
+          height: 25px;
+          width: 25px;
+          margin-top: 20px;
+          margin-left: 5px;
+          outline: none;
           opacity: 0;
+          text-align: center;
         }
         .addresses:hover button{
           opacity: 1;
@@ -168,7 +281,7 @@
       .Debter .accountCollapse{
         grid-area: accountCollapse;
         border-style: none;
-        background-color: #bdbebf;
+        background-color: #cccecf;
         cursor: pointer;
         outline: none;
         text-align: left;
@@ -362,6 +475,7 @@
         outline: none;
       }
 
+
 ////AddInfo
 .AddInfo{
   height: 100000%;
@@ -371,4 +485,15 @@
   top: 0px;
   left: 0px;
   background-color: rgba(1, 1, 1, .7);
+}
+
+
+/////add address form
+.addAddressForm{
+  margin:15px;
+}
+
+/////add phone form
+.addPhoneForm{
+  margin:15px;
 }
