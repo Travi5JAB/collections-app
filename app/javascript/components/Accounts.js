@@ -48,12 +48,19 @@ class Accounts extends React.Component {
           }else if (searchValue == "ssn"){
             const txtValue = debters[i].ssn
             if(search.length > 6){
-              const newSearch = `${search.slice(0,2)-search.slice(4,6)-search.slice(7)}`
+              const newSearch = `${search.slice(0,3)}-${search.slice(3,6)}-${search.slice(6,10)}`
               if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
                 li[i].style.display = "";
               } else {
                 li[i].style.display = "none";
               }
+            }else if(search.length > 3 && !search.includes("-")){
+                const newSearch = `${search.slice(0,3)}-${search.slice(3,6)}`
+                if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
+                  li[i].style.display = "";
+                } else {
+                  li[i].style.display = "none";
+                }
             }else{
               const newSearch = search
               if (txtValue.toUpperCase().indexOf(newSearch) > -1) {
@@ -179,7 +186,7 @@ class Accounts extends React.Component {
         }
           <h1>{collector.first_name}'s Accounts   --{collector.username}</h1>
           <ul id = "debterUL">
-          {myAccounts}
+            {myAccounts}
           </ul>
       </div>
     );

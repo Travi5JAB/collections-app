@@ -99,3 +99,32 @@ export const createPhone = function(phone, token) {
 			return resp.json()
 		})
 }
+
+export const destroyPhone = function(id, token) {
+	return fetch(`/phonenumbers/${id}`, {
+		body: JSON.stringify(id),
+		headers: {
+			'Content-Type': 'application/json',
+      "X-CSRF-Token": token
+		},
+		method: "DELETE"
+	})
+		.then((resp) => {
+			return resp.json()
+		})
+}
+
+
+/////payments
+
+export const myPaymentsFetch = id => {
+  return fetch(`/payments/${id}`).then(resp => {
+    return resp.json();
+  });
+};
+
+export const allPaymentsFetch = () => {
+  return fetch(`/allpayments`).then(resp => {
+    return resp.json();
+  });
+};

@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :accounts
-    patch 'payment/:payment/:id' => 'accounts#submit_payment'
 
   resources :addresses
     post 'addaddress/:address' => 'addresses#create_address'
@@ -20,6 +19,9 @@ Rails.application.routes.draw do
   resources :debters
 
   resources :debtholders
+
+  resources :payments
+    patch 'payment/:payment/:id' => 'payments#submit_payment'
 
   resources :phonenumbers
     post 'addphone/:phone' => 'phonenumbers#create_phone'

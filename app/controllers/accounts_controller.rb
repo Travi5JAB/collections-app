@@ -9,12 +9,4 @@ class AccountsController < ApplicationController
     render json: @accounts
   end
 
-  def submit_payment
-    @account = Account.find(params[:id])
-    @new_balance = @account.balance - params[:payment].to_i
-    if @new_balance >= 0
-      @account.update(:balance => @new_balance)
-      Comment.create(:string => "Payment of $#{params[:payment]} balance is now $#{@new_balance}", :account_id => params[:id])
-    end
-  end
 end

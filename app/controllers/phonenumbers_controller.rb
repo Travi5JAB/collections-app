@@ -1,4 +1,5 @@
 class PhonenumbersController < ApplicationController
+
   def create_phone
     @num_change = params[:number].insert(3, '-')
     @num_change2 = @num_change.insert(7,'-')
@@ -20,6 +21,11 @@ class PhonenumbersController < ApplicationController
     else
         render json: @number.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @number = Phonenumber.find(params[:id])
+    @number.destroy
   end
 
   def phone_params

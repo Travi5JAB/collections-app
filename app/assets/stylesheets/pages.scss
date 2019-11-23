@@ -61,7 +61,9 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    margin-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: red;
   }
 
 
@@ -162,7 +164,7 @@
     background-position: right;
     border-radius: 15px;
     height: 25px;
-    width: 150px;
+    width: 180px;
     text-align: center;
   }
   .Accounts .searchDiv .searchBar:focus{
@@ -213,7 +215,7 @@
     background-position: right;
     border-radius: 15px;
     height: 25px;
-    width: 150px;
+    width: 180px;
     text-align: center;
   }
   .AllAccounts .searchDiv .searchBar:focus{
@@ -238,7 +240,7 @@
     ///animation for search
     @keyframes searchExpand {
       0% {width: 25px}
-      100% {width: 150px}
+      100% {width: 180px}
     }
     @keyframes searchDivExpand {
       0% {width: 10px}
@@ -254,8 +256,12 @@
   /////////debter
 
   .Debter{
-    background-color: #cccecf;
-    margin-bottom: 10px;
+    background-color: #ffe8e8;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: solid;
+    box-shadow: 0 0 10px #719ECE;
   }
     .Debter h4{
       margin-left: 10px;
@@ -287,7 +293,40 @@
       }
         .phonenumbers .phoneNumber{
           margin: 10px;
+          display: grid;
+          grid-template-columns: 50px 100px auto;
+          grid-template-rows: auto;
+          grid-template-areas:
+          "phoneType number trash";
         }
+          .phoneNumber .phoneType{
+            grid-area: phoneType;
+          }
+          .phoneNumber .number{
+            grid-area: number;
+            cursor: pointer;
+          }
+
+          #trash{
+            grid-area: trash;
+            background-image: url(closed-trash.jpg);
+            background-repeat: no-repeat;
+            padding: 10px;
+            margin-left: 10px;
+            margin-top: -5px;
+            height: 25px;
+            width: 25px;
+
+          }
+          #trash:hover{
+            background-image: url(open-trash.jpg);
+            background-repeat: no-repeat;
+            margin-left: 10px;
+            margin-top: -5px;
+            padding: 10px;
+            height: 25px;
+            width: 25px;
+          }
         .phonenumbers button{
           background-color: rgba(1, 1, 1, 0);
           border-style: none;
@@ -310,6 +349,10 @@
         .addresses .address{
           margin: 10px;
         }
+          .address #trash{
+            margin-left: 45px;
+            margin-bottom: -5px;
+          }
         .addresses button{
           border-style: none;
           background-color: rgba(1, 1, 1, 0);
@@ -339,7 +382,7 @@
       .Debter .accountCollapse{
         grid-area: accountCollapse;
         border-style: none;
-        background-color: #cccecf;
+        background-color: #ffe8e8;
         cursor: pointer;
         outline: none;
         text-align: left;
@@ -410,6 +453,7 @@
     .comment{
       border-bottom: solid;
       display: grid;
+      background-color: #d4d4d4;
       grid-template-columns: 10px auto auto auto;
       grid-template-rows: 50px 20px auto;
       grid-template-areas:
@@ -544,6 +588,16 @@
   left: 0px;
   background-color: rgba(1, 1, 1, .7);
 }
+  .AddInfo .add{
+    background-color: white;
+    color: red;
+    width: 25px;
+    height: 25px;
+  }
+    .AddInfo .add:hover{
+      background-color: red;
+      color: white;
+    }
 
 
 /////add address form

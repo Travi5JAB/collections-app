@@ -19,8 +19,11 @@ class Nav extends React.Component {
       edit_collector,
       token
     } = this.props;
+
     const debterAccountsLink = `/myaccounts/${current_collector.id}`
     const adminAccountsLink = `/allaccounts/${current_collector.id}`
+    const myPaymentsLink = `/mypayments/${current_collector.id}`
+    const allPaymentsLink = `/allpayments/${current_collector.id}`
 
     return (
       <div className = "Nav">
@@ -50,6 +53,26 @@ class Nav extends React.Component {
             id="adminLinkBtn"
           >
             Admin Link
+          </a>
+        }
+
+        { current_collector.admin_access == false &&
+          <a
+            className="navBtn"
+            href={myPaymentsLink}
+            id="myPayments"
+          >
+            My Payments
+          </a>
+        }
+
+        { current_collector.admin_access &&
+          <a
+            className="navBtn"
+            href={allPaymentsLink}
+            id="myPayments"
+          >
+            All Payments
           </a>
         }
 

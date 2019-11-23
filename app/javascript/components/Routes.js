@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 ////pages
-import Home from "./Home";
 import Accounts from "./Accounts";
 import AdminAccounts from "./AdminAccounts";
+import Home from "./Home";
+import MyPayments from "./MyPayments";
 
 
 class Routes extends React.Component {
@@ -28,12 +29,22 @@ class Routes extends React.Component {
           />
         )}
       />
-      
+
       <Route
         exact
         path="/myaccounts/:id"
         render={props => (
           <Accounts {...props}
+            current_collector = {current_collector}
+            token = {token}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/mypayments/:id"
+        render={props => (
+          <MyPayments {...props}
             current_collector = {current_collector}
             token = {token}
           />
